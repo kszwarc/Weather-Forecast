@@ -59,7 +59,7 @@ public class CityFromFile
         }
         else
             city = getCityFromIP();
-        return city;
+        return city == null ? "" : city;
     }
         
     private String getCityFromIP()
