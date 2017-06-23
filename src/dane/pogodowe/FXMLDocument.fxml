@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import dane.pogodowe.NumberTextField?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ProgressIndicator?>
+
+<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dane.pogodowe.FXMLDocumentController">
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <AnchorPane>
+               <children>
+                <VBox maxHeight="-Infinity" maxWidth="10" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <MenuBar>
+                       <menus>
+                           <Menu text="Opcje">
+                               <items>
+                                    <MenuItem text="Archiwum" onAction="#showArchive" />
+                                    <MenuItem text="Eksport" onAction="#export"/>
+                                </items>
+                           </Menu>
+                       </menus>
+                    </MenuBar> 
+                  </VBox>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                    <children>
+                      <HBox alignment="CENTER" fx:id="HBoxCity" > 
+                        <children>
+                            <Label alignment="CENTER" text="Miasto:">
+                                <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                            </Label>   
+                            <TextField fx:id="CityText" alignment="CENTER" prefWidth="175.0" onAction="#lookEvent" />
+                            <CheckBox fx:id="IsPolandCheckbox" mnemonicParsing="false" text="Miasto w Polsce" selected="true" >
+                                <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                            </CheckBox>     
+                            <Button fx:id="LookEventButton" alignment="CENTER" mnemonicParsing="false" onAction="#lookEvent" text="Szukaj">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                            </Button>
+                        </children>
+                      </HBox>
+                      <ProgressIndicator fx:id="ProgressIndicator" visible="false" />
+                    </children>
+                  </VBox> 
+                  <VBox fx:id="VBoxOption" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                      <children>    
+                        <HBox alignment="CENTER">
+                            <children>    
+                                <ChoiceBox fx:id="DataTypeCombo" layoutX="407.0" layoutY="74.0" prefWidth="250.0" onAction="#lookEvent" value="1-16 dniowa z dokładnością dzienną">
+                                  <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="5 dniowa z dokładnością 3 godzinną" />
+                                            <String fx:value="1-16 dniowa z dokładnością dzienną" />
+                                        </FXCollections>
+                                    </items>
+                                </ChoiceBox> 
+                                <NumberTextField fx:id="NumberOfDays" alignment="CENTER" layoutX="567.0" layoutY="74.0" onKeyReleased="#validateNumberOfDays" onAction="#lookEvent" prefHeight="25.0" prefWidth="49.0" visible="true" text="1" > 
+                                    <HBox.margin>
+                                        <Insets left="20.0" />
+                                    </HBox.margin>
+                                </NumberTextField> 
+                            </children>   
+                        </HBox> 
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Label fx:id="NumberOfDaysLabel" layoutX="565.0" layoutY="98.0" text="Liczba dni">
+                                    <HBox.margin>
+                                        <Insets left="270.0" />
+                                    </HBox.margin>
+                                </Label>     
+                            </children>
+                      </HBox>   
+                    </children>  
+                  </VBox>
+                  <VBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+                      <children>    
+                        <HBox alignment="CENTER">
+                            <children>    
+                                <Label style="-fx-font-weight: bold"  fx:id="FoundCity" alignment="CENTER" mnemonicParsing="false" text="" />
+                            </children>   
+                        </HBox> 
+                    </children>  
+                  </VBox>
+                  <LineChart fx:id="TodayTemperatureChart" layoutX="0.0" layoutY="185.0" prefHeight="450.0" prefWidth="235.0" title="Temperatura dzisiaj" AnchorPane.leftAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" label="Dzień" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Temperatura [C]" side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+                  <LineChart fx:id="SecondTemperatureChart" layoutX="250.0" layoutY="185.0" legendSide="RIGHT" prefHeight="450.0" title="Temperatura w kolejnych dniach" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="0.0">
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" label="Dzień" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis label="Temperatura [C]" side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+                  
+                  <LineChart fx:id="TodayHumidityChart" layoutX="0.0" layoutY="640.0" prefHeight="450.0" prefWidth="235.0" title="Wilgotność dzisiaj" AnchorPane.leftAnchor="0.0">
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" label="Dzień" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis label="Wilgotność [%]" side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+                  <LineChart fx:id="SecondHumidityChart" layoutX="250.0" layoutY="640.0" legendSide="RIGHT" prefHeight="450.0" title="Wilgotność w kolejnych dniach" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="0.0">
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" label="Dzień" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis label="Wilgotność [%]" side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+                  
+                  <AreaChart fx:id="TodayPressureChart" layoutX="0.0" layoutY="1090.0" prefHeight="450.0" prefWidth="235.0" title="Ciśnienie dzisiaj" AnchorPane.leftAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" label="Dzień" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Ciśnienie [hPa]" side="LEFT" autoRanging="false" lowerBound="900.0" upperBound="1100.0" />
+                    </yAxis>
+                  </AreaChart>
+                  <AreaChart fx:id="SecondPressureChart" layoutX="250.0" layoutY="1090.0" legendSide="RIGHT" prefHeight="450.0" title="Ciśnienie w kolejnych dniach" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" label="Dzień" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Ciśnienie [hPa]" side="LEFT"  autoRanging="false" lowerBound="900.0" upperBound="1100.0" />
+                    </yAxis>
+                  </AreaChart>
+                  
+                  <AreaChart fx:id="TodayWindSpeedChart" layoutX="0.0" layoutY="1540.0" prefHeight="450.0" prefWidth="235.0" title="Prędkość wiatru dzisiaj" AnchorPane.leftAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" label="Dzień" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Prędkość wiatru [m/s]" side="LEFT" />
+                    </yAxis>
+                  </AreaChart>
+                  <AreaChart fx:id="SecondWindSpeedChart" layoutX="250.0" layoutY="1540.0" legendSide="RIGHT" prefHeight="450.0" title="Prędkość wiatru w kolejnych dniach" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" label="Dzień" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Prędkość wiatru [m/s]" side="LEFT" />
+                    </yAxis>
+                  </AreaChart>
+                  
+                  <AreaChart fx:id="TodayWindDegreesChart" layoutX="0.0" layoutY="2040.0" prefHeight="450.0" prefWidth="235.0" title="Kierunek wiatru dzisiaj" AnchorPane.leftAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" label="Dzień" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Kierunek wiatru [stopnie]" side="LEFT" />
+                    </yAxis>
+                  </AreaChart>
+                  <AreaChart fx:id="SecondWindDegreesChart" layoutX="250.0" layoutY="2040.0" legendSide="RIGHT" prefHeight="450.0" title="Kierunek wiatru w kolejnych dniach" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" label="Dzień" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Kierunek wiatru [stopnie]" side="LEFT" />
+                    </yAxis>
+                  </AreaChart>
+                  
+                  <AreaChart fx:id="TodayFallChart" layoutX="0.0" layoutY="2540.0" prefHeight="450.0" prefWidth="235.0" title="Opady deszczu w ciągu ostatniej godziny" AnchorPane.leftAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" label="Dzień" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Opady deszczu [mm/m^2]" side="LEFT" />
+                    </yAxis>
+                  </AreaChart>
+                  <AreaChart fx:id="SecondFallChart" layoutX="250.0" layoutY="2540.0" legendSide="RIGHT" prefHeight="450.0" title="Opady deszczu w kolejnych dniach" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" label="Dzień" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Opady deszczu [mm/m^2]" side="LEFT" />
+                    </yAxis>
+                  </AreaChart>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
