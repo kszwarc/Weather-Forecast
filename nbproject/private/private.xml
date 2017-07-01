@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Dane/</file>
+            <file>file:/E:/Dane/Weather-Forecast/src/dane/pogodowe/Models/CityFromFile.java</file>
+            <file>file:/E:/Dane/Weather-Forecast/src/dane/pogodowe/Models/WeatherData.java</file>
+            <file>file:/E:/Dane/Weather-Forecast/src/dane/pogodowe/Models/OpenWeatherMap.java</file>
+            <file>file:/E:/Dane/Weather-Forecast/src/dane/pogodowe/DatabaseController.java</file>
+            <file>file:/E:/Dane/Weather-Forecast/src/dane/pogodowe/FXMLDocumentController.java</file>
         </group>
     </open-files>
 </project-private>
